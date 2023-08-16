@@ -9,3 +9,7 @@
     grid-template-columns: repeat(3, 1fr);
     padding: 20px;
 }
+
+.order-cart{
+    background-color: rgb(79, 0, 79);
+}
