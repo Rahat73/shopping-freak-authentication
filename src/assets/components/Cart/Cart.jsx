@@ -2,24 +2,29 @@ import "./Cart.css";
 const Cart = (props) => {
   const { cart } = props;
 
-  let total = 0;
+  let totalPrice = 0;
   let totalShipping = 0;
+  let totalQuantity = 0;
 
   for (const item of cart) {
-    total = total + item.price;
+    //setting quantity to 1 bcz db has quantity 0, and quantity getting multiplied, so whole result becomes 0
+    item.quantity = item.quantity || 1;
+
+    totalPrice = totalPrice + item.price * item.quantity;
     totalShipping = totalShipping + item.shipping;
+    totalQuantity = totalQuantity + item.quantity;
   }
 
-  const tax = (total * 7) / 100;
+  const tax = (totalPrice * 7) / 100;
 
-  const grandTotal = total + totalShipping + tax;
+  const grandTotal = totalPrice + totalShipping + tax;
 
   return (
     <div className="cart">
       <h2>Order Summery</h2>
       <div className="cart-details">
-        <p>Selected items: {cart.length}</p>
-        <p>Total price: ${total}</p>
+        <p>Selected items: {totalQuantity}</p>
+        <p>Total price: ${totalPrice}</p>
         <p>Total Shipping: ${totalShipping}</p>
         <p>Tax: ${tax.toFixed(2)}</p>
         <h4>Grand total: ${grandTotal.toFixed(2)}</h4>

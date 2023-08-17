@@ -1,48 +1,63 @@
-import { useState } from 'react';
-import './Shop.css'
-import { useEffect } from 'react';
-import Product from '../Product/Product';
-import Cart from '../Cart/Cart';
-
+import { useState } from "react";
+import "./Shop.css";
+import { useEffect } from "react";
+import Product from "../Product/Product";
+import Cart from "../Cart/Cart";
+import { addToDb, getShoppingCart } from "../../fakedb";
 
 const Shop = () => {
+  const [products, setProducts] = useState([]);
 
-    const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
-    const [cart, setCart] = useState([]);
+  useEffect(() => {
+    fetch("products.json")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
 
-    useEffect(() => {
-        fetch('products.json')
-            .then(res => res.json())
-            .then(data => setProducts(data))
-    }, [])
-
-
-    const handleAddToCart = (product) => {
-        const newCart = [...cart, product]
-        setCart(newCart);
+  useEffect(() => {
+    const storedCart = getShoppingCart();
+    const savedCart = [];
+    //getting id of stored products in local storage
+    for (const id in storedCart) {
+      //getting the products from db using the ids stored in local storage
+      const addedProduct = products.find((product) => product.id === id);
+      //getting the quantity from local storage using the ids
+      if (addedProduct) {
+        const quantity = storedCart[id];
+        addedProduct.quantity = quantity;
+        savedCart.push(addedProduct);
+      }
     }
+    setCart(savedCart);
+  }, [products]);
 
+  const handleAddToCart = (product) => {
+    const newCart = [...cart, product];
+    setCart(newCart);
+    addToDb(product.id);
+  };
 
-    return (
-        <div className="shop-container">
-            <div>
-                <h2>Total Products: {products.length}</h2>
-                <div className="products-container">
-                    {
-                        products.map(product => <Product
-                            key={product.id}
-                            product={product}
-                            handleAddToCart={handleAddToCart}
-                        ></Product>)
-                    }
-                </div>
-            </div>
-            <div className="order-cart">
-                <Cart cart={cart}></Cart>
-            </div>
+  return (
+    <div className="shop-container">
+      <div>
+        <h2>Total Products: {products.length}</h2>
+        <div className="products-container">
+          {products.map((product) => (
+            <Product
+              key={product.id}
+              product={product}
+              handleAddToCart={handleAddToCart}
+            ></Product>
+          ))}
         </div>
-    );
+      </div>
+      <div className="order-cart">
+        <Cart cart={cart}></Cart>
+      </div>
+    </div>
+  );
 };
 
 export default Shop;
