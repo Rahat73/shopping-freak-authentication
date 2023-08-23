@@ -8,10 +8,14 @@
   margin-left: 20px;
 }
 
-.cart-delete {
+.cart-buttons {
   margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  margin: 50px 20px;
 }
 
-.cart-delete button {
+.clear-cart-btn {
   background-color: red;
+  margin-bottom: 20px;
 }

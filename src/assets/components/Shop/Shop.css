@@ -13,3 +13,8 @@
 .order-cart {
   background-color: rgb(79, 0, 79);
 }
+
+.review-order-btn {
+  background-color: rgb(241, 144, 40);
+  width: 100%;
+}

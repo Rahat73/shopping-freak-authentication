@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Product from "../Product/Product";
 import Cart from "../Cart/Cart";
 import { addToDb, deleteShoppingCart, getShoppingCart } from "../../fakedb";
+import { Link } from "react-router-dom";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -59,7 +60,11 @@ const Shop = () => {
         </div>
       </div>
       <div className="order-cart">
-        <Cart cart={cart} handleClearCart={handleClearCart}></Cart>
+        <Cart cart={cart} handleClearCart={handleClearCart}>
+          <Link to="/orders">
+            <button className="review-order-btn">Review order</button>
+          </Link>
+        </Cart>
       </div>
     </div>
   );
