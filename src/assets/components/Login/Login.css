@@ -1,6 +1,6 @@
 .form-container {
   width: 500px;
-  height: 550px;
+  height: 650px;
   margin: 20px auto;
   border: 5px solid;
   border-color: aliceblue;
@@ -32,7 +32,7 @@
 .btn-submit {
   width: 300px;
   height: 40px;
-  margin-top: 40px;
+  margin-top: 20px;
   font-size: large;
 }
 
@@ -51,4 +51,18 @@
   border-left: 0px;
   border-right: 0px;
   margin-inline: 10px;
+}
+
+.new-account {
+  color: chartreuse;
+  margin-left: 8px;
+}
+
+.google-btn {
+  width: 300px;
+  height: 40px;
+  margin-top: 40px;
+  font-size: small;
+  border-radius: 3px;
+  background-color: rgb(8, 123, 161);
 }

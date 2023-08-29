@@ -1,7 +1,11 @@
 // import React from 'react';
 import { Link } from "react-router-dom";
 import "./Header.css";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 const Header = () => {
+  const { displayName } = useContext(AuthContext);
+  console.log(displayName);
   return (
     <nav className="header">
       <h1>Shopping freak</h1>
