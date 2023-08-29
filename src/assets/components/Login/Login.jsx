@@ -1,14 +1,33 @@
 // import React from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
+import { useContext, useState } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
+  const [error, setError] = useState("");
+  const { signIn, setUser } = useContext(AuthContext);
+
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+
+    setError("");
+    setUser("");
+
+    signIn(email, password)
+      .then((result) => {
+        // Signed in
+        const loggedUser = result.user;
+        form.reset();
+        setUser(loggedUser);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setError(errorMessage);
+      });
   };
 
   return (
@@ -23,6 +42,7 @@ const Login = () => {
           <label htmlFor="password">Password</label>
           <input type="password" name="password" required />
         </div>
+        <p className="error-msg">{error}</p>
         <input className="btn-submit" type="submit" value="Login" />
       </form>
       <div className="divider">

@@ -4,8 +4,13 @@ import "./Header.css";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 const Header = () => {
-  const { displayName } = useContext(AuthContext);
-  console.log(displayName);
+  const { user, logOut } = useContext(AuthContext);
+
+  console.log(user);
+
+  const handleLogOut = () => {
+    logOut();
+  };
   return (
     <nav className="header">
       <h1>Shopping freak</h1>
@@ -15,6 +20,12 @@ const Header = () => {
         <Link to="/inventory">Inventory</Link>
         <Link to="/login">Login</Link>
         <Link to="/signup">SignUp</Link>
+        {user && (
+          <>
+            <p className="current-user">{user.email}</p>
+            <button onClick={handleLogOut}>Sign Out</button>
+          </>
+        )}
       </div>
     </nav>
   );
