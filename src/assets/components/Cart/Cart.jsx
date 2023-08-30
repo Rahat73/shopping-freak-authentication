@@ -34,7 +34,7 @@ const Cart = (props) => {
       </div>
       <div className="cart-buttons">
         <button className="clear-cart-btn" onClick={handleClearCart}>
-          Clear cart <FontAwesomeIcon icon={faTrash} size="md" />
+          Clear cart <FontAwesomeIcon icon={faTrash} size="lg" />
         </button>
         {children}
       </div>
